@@ -1,0 +1,14 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #1b63ab;
+    border-bottom: 1px solid #dee2e6;
+}
