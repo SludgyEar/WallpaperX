@@ -127,11 +127,17 @@ public class UserController {
         // First we recieve the userDTO object from the request body
         // Then we validate if the userDTO dont contains null values
         // If it contains null values we return a bad request response
-        if(userDTO.getUserName().isBlank()){
+        if(userDTO.getUserName().isBlank() || userDTO.getEmail().isBlank()){
             return ResponseEntity.badRequest().build();
         }
-        // If it's valid we use WallpaperDTO to create a new wallpaper
-        // This is this way cause we are using a Native Query to insert the wallpaper
+        // Then we validate if the userDTO already exists in the database
+        Optional<User> userOptional = userService.getUserByUsername(userDTO.getUserName());
+        if(userOptional.isPresent()){
+            // If he does, we return a bad request response
+            return ResponseEntity.badRequest().body("User already exists");
+        }
+        // If it's valid we use userDTO to create a new user
+        // This is this way cause we are using a Native Query to insert the user
         // and we need to pass the parameters to the query
         userService.addUser(
             userDTO.getUserName(),
@@ -139,7 +145,7 @@ public class UserController {
             userDTO.getPassword(),
             userDTO.getRol(),
             userDTO.getState(),
-            LocalDateTime.now().toString()
+            LocalDateTime.now().toString().split("T")[0] // Get the current date in yyyy-MM-dd format
         );
         return ResponseEntity.created(new URI("api/user/register")).build();
     }
