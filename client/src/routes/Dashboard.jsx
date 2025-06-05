@@ -1,9 +1,12 @@
-
+import LayOut from "../layouts/LayOut";
+import '../layouts/styles/Dashboard.css'
 
 export default function Dashboard() {
     return (
-        <div>
-            <h1>Dashboard</h1>
-        </div>
+        <LayOut>
+            <div className="dashboard-container">
+                
+            </div>
+        </LayOut>
     );
 }

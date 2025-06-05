@@ -4,6 +4,12 @@
   height: 100vh;
 }
 
+.main-content{
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
 .main-header{
     display: flex;
     align-items: center;
@@ -11,4 +17,11 @@
     padding: 10px 20px;
     background-color: #1b63ab;
     border-bottom: 1px solid #dee2e6;
+}
+
+.main-footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: brown;
 }

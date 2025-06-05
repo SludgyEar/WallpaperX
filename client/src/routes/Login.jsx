@@ -39,6 +39,7 @@ export default function Login() {
                 </div>
                 <button type="submit">Iniciar sesión</button>
             </form>
+            <a href="/signup">¿No tienes cuenta?</a>
         </div>
     );
 }
