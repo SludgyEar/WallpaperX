@@ -58,4 +58,14 @@ public class UserServiceImpl implements IUserService{
     public Optional<User> getUserAuth(String userName, String password){
         return userDAO.getUserAuth(userName, password);
     }
+
+    @Override
+    public List<User> getUserByRol(String rol){
+        return userDAO.getUserByRol(rol);
+    }
+
+    @Override
+    public List<User> getUserByState(int state) {
+        return userDAO.getUserByState(state);
+    }
 }

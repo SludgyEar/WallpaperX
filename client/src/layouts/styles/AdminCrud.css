@@ -1,0 +1,133 @@
+.crud-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.button-wrapper{
+    display: flex;;
+    flex-direction: row;
+}
+
+.filtro-form input{
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    padding: 5px 10px;
+    width: 55vh;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    align-self: center;
+}
+
+.filtro-select{
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    padding: 5px 10px;
+    max-width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    align-self: center;
+}
+
+.crud-table{
+    height: 50vh;
+    margin: 20px auto;
+    /* overflow-y: scroll; */
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+}
+
+.action-button{
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#update-button{
+    background-color: #f0ad4e;
+    color: white;
+    margin-right: 10px;
+}
+#details-button {
+    background-color: #007bff;
+    color: white;
+    margin-right: 10px;
+}
+#delete-button{
+    background-color: #d9534f;
+    color: white;
+}
+
+#update-button:hover {
+    background-color: #ec971f;
+}
+#details-button:hover {
+    background-color: #0056b3;
+}
+#delete-button:hover {
+    background-color: #c9302c;
+}
+
+/* Fondo de la superposición */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+/* Contenido del div superpuesto */
+.overlay-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    overflow-y: auto;
+    margin: 20px;
+    align-items: center;
+}
+
+.overlay-content button {
+    width: 120px;
+    height: 56px;
+    background-color: #45617d;
+    color: #fff;
+    border: 2px solid #55779a;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.overlay-content button:hover {
+    background-color: #a60505;
+    transform: scale(1.05);
+}

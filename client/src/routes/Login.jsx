@@ -2,11 +2,14 @@ import '../layouts/styles/Login.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../providers/AuthProvider";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function Login() {
     const navigate = useNavigate();
+    const auth = useAuth();
+    
     
     const [user, setUser] = useState({
         userName: '',
@@ -20,7 +23,10 @@ export default function Login() {
         try{
             const response = await axios.post(`http://localhost:8081/api/user/auth`, user);
             if(response.status === 201){
-                navigate('/test');  // Cambiar a la ruta deseada después del login exitoso - esto solo es para testear
+                (response.data.rol) === 'ADMIN' ? auth.handleAdmin(true) : auth.handleAdmin(false);
+                auth.handleUser(response.data);
+                auth.handleAuth(true);
+                navigate('/dashboard');
             }
         }catch (error) { console.error("Error al acceder como usuario", error); }
     };

@@ -22,4 +22,8 @@ public interface IUserService {
 
     Optional<User> getUserAuth(String userName, String password);
 
+    List<User> getUserByRol(String rol);
+
+    List <User> getUserByState(int state);
+
 }

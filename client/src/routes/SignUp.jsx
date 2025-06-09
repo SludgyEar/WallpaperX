@@ -2,11 +2,13 @@ import { useState } from "react";
 import { resolvePath, useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../layouts/styles/SignUp.css';
+import { useAuth } from "../providers/AuthProvider";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function SignUp() {
     const navigate = useNavigate();
+    const auth = useAuth();
 
     const [user, setUser] = useState({
         userName: '',
@@ -23,8 +25,9 @@ export default function SignUp() {
         try{
             const response = await axios.post(`http://localhost:8081/api/user/register`, user);
             if(response.status === 201){
-                console.log("Usuario creado exitosamente");
-                navigate('/'); // Redirigir al login después de crear el usuario
+                auth.handleAuth(true);
+                auth.handleUser(response.data);
+                navigate('/dashboard');
             }   // No se tiene que validar dentro del if un status erróneo, ya que si no se cumple el status 201, se lanzará un error y se capturará en el catch
 
         }catch (error){

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -39,7 +40,7 @@ public class UserController {
 
      @GetMapping("/userById/{id}")
      public ResponseEntity<?> getUserById(@PathVariable int id){
-        // Search user by id
+        // Search a single user by id
         Optional<User> userOptional = userService.getUserById(id);
         // If exists
         if(userOptional.isPresent()){
@@ -82,7 +83,7 @@ public class UserController {
      
      @GetMapping("/userByName/{username}")
      public ResponseEntity<?> getUserByUsername(@PathVariable String username){
-
+        // Search a single user by username
         Optional<User> userOptional = userService.getUserByUsername(username);
         if(userOptional.isPresent()){
             User user = userOptional.get();
@@ -103,7 +104,7 @@ public class UserController {
 
      @GetMapping("/userByEmail/{email}")
     public ResponseEntity<?> getUserByEmail(@PathVariable String email){
-
+        // Search a single user by email
         Optional<User> userOptional = userService.getUserByEmail(email);
         if(userOptional.isPresent()){
             User user = userOptional.get();
@@ -121,6 +122,51 @@ public class UserController {
 
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/userByRol/{rol}")
+    public ResponseEntity<?> getUserByRol(@PathVariable String rol){
+        // Search a single user by rol
+        rol = rol.toUpperCase();
+        List<UserDTO> userList = userService.getUserByRol(rol)
+        .stream()
+        .map(user -> UserDTO.builder()
+            .id(user.getId())
+            .userName(user.getUserName())
+            .email(user.getEmail())
+            .password(user.getPassword())
+            .rol(user.getRol())
+            .state(user.getState())
+            .registeredDate(user.getRegisteredDate())
+            .build())
+        .toList();
+        return ResponseEntity.ok(userList);
+    }
+
+    @GetMapping("/userByState/{state}")
+    public ResponseEntity<?> getUserByState(@PathVariable String state){
+        int stateNum = 0;
+        if(state.equals("ACTIVO") || state.equals("activo")){
+            stateNum = 1;
+        }else if(state.equals("BANEADO") || state.equals("baneado")){
+            stateNum = 2;
+        }else{
+            stateNum = 0; // INACTIVO
+        }
+        List<UserDTO> userList = userService.getUserByState(stateNum)
+        .stream()
+        .map(user -> UserDTO.builder()
+            .id(user.getId())
+            .userName(user.getUserName())
+            .email(user.getEmail())
+            .password(user.getPassword())
+            .rol(user.getRol())
+            .state(user.getState())
+            .registeredDate(user.getRegisteredDate())
+            .build())
+        .toList();
+        return ResponseEntity.ok(userList);
+    }
+    
 
     @PostMapping("/register")
     public ResponseEntity<?> addUser(@RequestBody UserDTO userDTO) throws URISyntaxException{
@@ -187,7 +233,7 @@ public class UserController {
         // we return a 201 Created response with a message
         Optional<User> userOptional = userService.getUserAuth(userDTO.getUserName(), userDTO.getPassword());
         if(userOptional.isPresent()){
-            return ResponseEntity.created(new URI("api/user/auth")).build();
+            return ResponseEntity.created(new URI("api/user/auth")).body(userOptional.get());
         }
         return ResponseEntity.status(401).body("Authentication failed: Invalid username or password");
     }

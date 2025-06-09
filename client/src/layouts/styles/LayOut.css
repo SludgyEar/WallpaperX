@@ -1,27 +1,35 @@
+html, body {
+  height: 100%;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .main-content{
-  display: flex;
-  width: 100%;
-  height: 100%;
+  flex: 1;
 }
 
 .main-header{
+  background: #3498db;
+  text-align: center;
+  color: white;
+  }
+
+  .main-header nav{
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #1b63ab;
-    border-bottom: 1px solid #dee2e6;
-}
+    justify-content: center;
+    gap: 5px;
+  }
 
 .main-footer{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: brown;
+  background: #2c3e50;
+  padding: 20px;
+  text-align: center;
+  color: white;
 }

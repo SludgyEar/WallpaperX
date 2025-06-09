@@ -55,4 +55,13 @@ public class UserDAOImpl implements IUserDAO{
         return userRepository.getUserAuth(username, password);
     }
 
+    @Override
+    public List<User> getUserByRol(String rol){
+        return userRepository.getUserByRol(rol);
+    }
+
+    @Override
+    public List<User> getUserByState(int state){
+        return userRepository.getUserByState(state);
+    }
 }
