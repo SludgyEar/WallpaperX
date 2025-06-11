@@ -6,7 +6,6 @@ import { useState } from "react";
 
 export default function Dashboard() {
     const auth = useAuth();
-    auth.isAdmin = true;
 
     const [selectedService, setSelectedService] = useState('inicio');
     const handleServiceClick = (service) => {

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import '../layouts/styles/AdminCrud.css';
 import axios from 'axios';
 import EditCard from './EditCard';
+import AddUserCard from './AddUserCard';
 
 function AdminCrud() {
 
@@ -63,12 +64,17 @@ function AdminCrud() {
     };
 
     // Manejo de estado para el overlay
-    const [shOverlay, setShOverlay] = useState(true);
-    const toggleOverlay = () => {
-        setShOverlay(!shOverlay);
+    const [shEditOverlay, setShEditOverlay] = useState(false);
+    const toggleEditOverlay = () => {
+        setShEditOverlay(!shEditOverlay);
     };
 
-    const [userToUpdate, setUserToUpdate] = useState({});
+    const [shAddOverlay, setShAddOverlay] = useState(false);
+    const toggleAddOverlay = () => {
+        setShAddOverlay(!shAddOverlay);
+    };
+
+    const [userToUpdate, setUserToUpdate] = useState({});   // Esto trae los datos del usuario que se va a actualizar
     const handleUserToUpdate = (user) => {
         setUserToUpdate(user);
     };
@@ -79,21 +85,38 @@ function AdminCrud() {
         <div className='crud-container'>
             <h2>Filtrar Usuarios</h2>
 
-            {shOverlay && (
+            {shEditOverlay && (
                 <div>
                     <div className='overlay'>
                         <div className="overlay-content">
                             {userToUpdate && (
-                                <EditCard user={userToUpdate} />
+                                <EditCard user={userToUpdate} onClose={toggleEditOverlay} onClean={() => {
+                                    setUserToUpdate({
+                                        id: '',
+                                        userName: '',
+                                        email: '',
+                                        password: '',
+                                        state: 0,
+                                        rol: '',
+                                        registeredDate: ''
+                                    });
+                                }}/>
                             )}
-                            <button onClick={() => {
-                                toggleOverlay();
-                                setUserToUpdate({});
-                            }}>Cancelar</button>
                         </div>
                     </div>
                 </div>
             )}
+            {shAddOverlay && (
+                <div>
+                    <div className='overlay'>
+                        <div className="overlay-content">
+                            <AddUserCard onClose={toggleAddOverlay} />
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            
 
             <div className="button-wrapper">
                 <button className="filtro-select" onClick={handleFiltro} name="id">Id</button>
@@ -105,8 +128,9 @@ function AdminCrud() {
             </div>
             <form className='filtro-form' onSubmit={handleSearchByFilter}>
                 <input type="text" placeholder={`Buscar por ${filtro}`} className="filtro-input" onChange={handleValueToFind} required/>
-                <button className="filtro-select">Buscar</button>
+                <button className="filtro-select" type='submit'>Buscar</button>
             </form>
+            <button className='filtro-select' onClick={toggleAddOverlay}>Agregar Usuario</button>
             <div className='crud-table'>
                 <table>
                     <thead>
@@ -131,17 +155,23 @@ function AdminCrud() {
                                     <button className='action-button' id='update-button'
                                         onClick={async () => {
                                             try{
-                                                toggleOverlay();
+                                                toggleEditOverlay();
                                                 const response = await axios.get(`http://localhost:8081/api/user/userById/${user.id}`);
                                                 handleUserToUpdate(response.data);
-                                                console.log("Usuario a actualizar:", response.data);
                                             } catch(err) { console.log("Error al actualizar usuario", err); }
                                         }}
                                     >
                                         Update
                                     </button>
                                     <button className='action-button' id='details-button'>Details</button>
-                                    <button className='action-button' id='delete-button'>Delete</button>
+                                    <button className='action-button' id='delete-button'
+                                        onClick={async() => {
+                                            try{
+                                                const apagado = {state: 0};
+                                                await axios.put(`http://localhost:8081/api/user/modify/${user.id}`, apagado);
+                                            }catch(err){ console.log("Error en el borrado lógico", err)}
+                                        }}
+                                    >Delete</button>
                                 </td>
                             </tr>
                         ))}

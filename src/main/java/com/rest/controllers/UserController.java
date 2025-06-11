@@ -177,7 +177,7 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
         // Then we validate if the userDTO already exists in the database
-        Optional<User> userOptional = userService.getUserByUsername(userDTO.getUserName());
+        Optional<User> userOptional = userService.getUserByEmail(userDTO.getEmail());
         if(userOptional.isPresent()){
             // If he does, we return a bad request response
             return ResponseEntity.badRequest().body("User already exists");
@@ -201,11 +201,24 @@ public class UserController {
         Optional<User> userOptional = userService.getUserById(id);
         if(userOptional.isPresent()){
             User user = userOptional.get();
-            user.setUserName(userDTO.getUserName());
-            user.setPassword(userDTO.getPassword());
 
+            if(userDTO.getUserName() != null){
+                user.setUserName(userDTO.getUserName());
+            }
+            if(userDTO.getEmail() != null){
+                user.setEmail(userDTO.getEmail());
+            }
+            if(userDTO.getPassword() != null){
+                user.setPassword(userDTO.getPassword());
+            }
+            if(userDTO.getRol() != null){
+                user.setRol(userDTO.getRol().toUpperCase());
+            }
+            if((userDTO.getState() >= 0 && (userDTO.getState() < 3))){
+                user.setState(userDTO.getState());
+            }
             userService.updateUser(user);
-            return ResponseEntity.ok("User updated successfully");
+            return ResponseEntity.ok("Actualización exitosa: ");
         }
 
         return ResponseEntity.notFound().build();

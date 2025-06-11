@@ -9,6 +9,8 @@ import Login from './routes/Login';
 import SignUp from './routes/SignUp';
 import Dashboard from './routes/Dashboard';
 import AdminCrud from './components/AdminCrud';
+import AddUserCard from './components/AddUserCard';
+import EditCard from './components/EditCard';
 
 const router = createBrowserRouter([
   // Rutas no protegidas
@@ -30,14 +32,9 @@ const router = createBrowserRouter([
       }
     ]
   },
-  // test
   {
-    path: '/admin',
-    element: <AdminCrud/>,
-  },
-  {
-    path: '/test',
-    element: <Dashboard/>
+    path: '/add',
+    element: <AddUserCard/>
   }
 ]);
 

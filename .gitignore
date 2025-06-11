@@ -34,3 +34,6 @@ build/
 logs/
 App.log
 application.properties
+LOG_FILE_IS_UNDEFINED
+mvnw
+mvnw.cmd

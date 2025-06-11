@@ -1,0 +1,86 @@
+.edit-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width: 110vh;
+    height: 87vh;
+}
+
+.edit-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 95%;
+    height: 95%;
+    background-color: #ccc;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.edit-form h2{
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.edit-form-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-form-group label {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.edit-form-group input{
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    padding: 8px 12px;
+    width: 65vh;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-form-group select{
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    padding: 8px 12px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-form button{
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-form button:hover{
+    background-color: #2980b9;
+}
+
+.edit-button-action{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.edit-button-action button{
+    border-radius: 6px;
+}
+
+#edit-cancel-button{
+    background-color: #b93e30;
+    color: white;
+}
