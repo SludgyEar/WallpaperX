@@ -37,4 +37,7 @@ public interface WallpaperRepository extends CrudRepository<Wallpaper, Integer>{
     @Transactional
     @Query("DELETE FROM Wallpaper w WHERE w.id = ?1")
     void deleteWallpaperById(int id);
+
+    @Query("SELECT w FROM Wallpaper w WHERE w.user.id = ?1")
+    List<Wallpaper> getWallpapersFromUser(int userId);
 }

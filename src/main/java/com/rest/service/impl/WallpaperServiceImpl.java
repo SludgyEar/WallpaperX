@@ -48,4 +48,9 @@ public class WallpaperServiceImpl implements IWallpaperService{
     public void deleteWallpaperById(int id) {
         wallpaperDAO.deleteWallpaperById(id);
     }
+
+    @Override
+    public List<Wallpaper> getWallpapersFromUser(int userId) {
+        return wallpaperDAO.getWallpapersFromUser(userId);
+    }
 }

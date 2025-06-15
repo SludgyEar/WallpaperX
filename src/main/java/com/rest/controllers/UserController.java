@@ -218,7 +218,7 @@ public class UserController {
                 user.setState(userDTO.getState());
             }
             userService.updateUser(user);
-            return ResponseEntity.ok("Actualización exitosa: ");
+            return ResponseEntity.ok("Updated successfully");
         }
 
         return ResponseEntity.notFound().build();

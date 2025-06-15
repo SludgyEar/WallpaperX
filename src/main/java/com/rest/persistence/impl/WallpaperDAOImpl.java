@@ -44,4 +44,9 @@ public class WallpaperDAOImpl implements IWallpaperDAO {
     public void deleteWallpaperById(int id) {
         wallpaperRepository.deleteWallpaperById(id);
     }
+
+    @Override
+    public List<Wallpaper> getWallpapersFromUser(int userId) {
+        return wallpaperRepository.getWallpapersFromUser(userId);
+    }
 }

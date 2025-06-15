@@ -1,4 +1,6 @@
 import AdminCrud from "../components/AdminCrud";
+import ProfileCard from "../components/ProfileCard";
+import Wallpapers from "../components/Wallpapers";
 import LayOut from "../layouts/LayOut";
 import '../layouts/styles/Dashboard.css'
 import { useAuth } from "../providers/AuthProvider";
@@ -17,6 +19,9 @@ export default function Dashboard() {
                 <div className="sidebar">
                     <button className={selectedService === 'inicio' ? 'active' : ''} onClick={() => handleServiceClick('inicio')}>
                         Inicio
+                    </button>
+                    <button className={selectedService === 'wallpapers' ? 'active' : ''} onClick={() => handleServiceClick('wallpapers')}>
+                        Wallpapers
                     </button>
                     <button className={selectedService === 'perfil' ? 'active' : ''} onClick={() => handleServiceClick('perfil')}>
                         Perfil
@@ -43,6 +48,7 @@ export default function Dashboard() {
                     <div className="card">
                         <h2>Bienvenido, {auth.user.userName}!</h2>
                         <p>Este es tu perfil.</p>
+                        <ProfileCard user={auth.user} />
                     </div>
                 )}
                 {selectedService === 'configuracion' && (
@@ -54,6 +60,12 @@ export default function Dashboard() {
                 {selectedService === 'admin' && auth.isAdmin && (
                     <div className="card">
                         <AdminCrud/>
+                    </div>
+                )}
+                {selectedService === 'wallpapers' && (
+                    <div className="card">
+                        <h2>Hola {auth.user.userName}, esta es la sección de Wallpapers.</h2>
+                        <Wallpapers />
                     </div>
                 )}
             </div>

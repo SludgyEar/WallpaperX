@@ -22,4 +22,6 @@ public interface IWallpaperDAO {
     void updateWallpaper(Wallpaper wallpaper);
 
     void deleteWallpaperById(int id);
+
+    List<Wallpaper> getWallpapersFromUser(int userId);
 }
